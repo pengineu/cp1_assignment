@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import collections
 
-data = np.load(r"C:\Users\sinja\Desktop\이신재\코딩\컴프 과제\새 폴더\주가 조작 가능성 분석\Intel_Stock_History_from_1980_03_17.npy")
+data = np.load("./Intel_Stock_History_from_1980_03_17.npy")
 log_data = np.log10(data)
 digits = log_data.astype(np.int32)
 normalize = data / 10**digits
