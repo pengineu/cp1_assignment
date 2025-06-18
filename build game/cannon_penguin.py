@@ -8,17 +8,23 @@ clock = pygame.time.Clock()
 def ingame():
     # 게임에서 사용될 여러 변수 설정/초기화
     x, y = 375, 600
+
+    # 대포 객체 관련 변수
     cannon_speed = 0
     acceleration = 0.01
     max_speed = 3
     angle = 0
     wheel_angle = 0
     angle_da = (math.pi * 2) / 5
+    shoot_angle = math.radians(45)
+
+    # 대포 발사 관련 변수
     charge = False
     shooting = False
-    shoot_angle = math.radians(45)
     charging_gauge = 20
     charging_tick = 1
+
+    # 대포알 이동 관련 변수
     vx = 0
     vy = 0
     air_resistence = random.randint(9992, 10008) / 10000
@@ -27,14 +33,23 @@ def ingame():
     cannon_ball_y = 0
     camera_x = 0
     camera_y = 768 * -15
+
+    # 표적 위치 변수
     seal_x = 1366 * 10 + random.randint(-1366*5, 1366*5)
     seal_y = 768 * -15.5
+
+    # 화면 이동 변수
     moving_x = 0
     moving_y = 0
+
+    # 최대 발사 제한
     cannonball_count = 5
+
+    # 소리 소스 설정
     shoot_sound = pygame.mixer.Sound("source/025_터지는소리BOOM.WAV")
     attack_sound = pygame.mixer.Sound("source/019_퓨히익 (online-audio-converter.com) (1).wav")
 
+    # 이미지 소스 설정
     cannonball_image = pygame.image.load("source/cannonball.png")
     cannonball_image = pygame.transform.scale(cannonball_image, (100, 100))
     seal_image = pygame.image.load("source/물범.png")
@@ -63,11 +78,11 @@ def ingame():
                 shoot_sound.play()
                 charge = False
                 shooting = True
-                force = min(charging_gauge, 10000)
+                force = min(charging_gauge, 10000) # 대포 발사 세기 최소/최대치 제한
                 vx = force * math.cos(shoot_angle * math.pi / 180) # 대포 각도와 연관된 힘 분해
                 vy = -force * math.sin(shoot_angle * math.pi / 180)
                 charging_gauge = 20 # 다음 발사를 위한 차징 게이지 초기화
-                cannon_ball_x = x
+                cannon_ball_x = x # 대포 위치에서 대포알이 발사되도록 설정
                 cannon_ball_y = y
                 cannonball_count -= 1 # 발사 횟수 제한
 
@@ -103,6 +118,7 @@ def ingame():
             if event.type == pygame.KEYUP and event.key == pygame.K_s:
                 screen_moving = True
                 moving_y += 25
+
             # m 키를 누르면 원위치
             if event.type == pygame.KEYUP and event.key == pygame.K_m:
                 screen_moving = False
@@ -119,6 +135,7 @@ def ingame():
         screen.fill((255, 255, 255))
         screen.blit(background_image, (camera_x - 375*2, camera_y + 400))
 
+        # 대포알 제한 횟수가 0이 되면 게임 오버
         if cannonball_count == 0 and not shooting:
             return outgame()
 
@@ -132,10 +149,12 @@ def ingame():
             rotated_wheel = pygame.transform.rotate(wheel_image, -wheel_angle)
             wheel_rect = rotated_wheel.get_rect(center=(x, y))
             screen.blit(rotated_wheel, wheel_rect)
+            # 차징 게이지 구현
 
             pygame.draw.rect(screen, (0, 255, 0), (camera_x, camera_y + 768*15 + 768//4, (charging_gauge - 20)*2, 20)) # 차징 게이지 바 구현
 
-            for i in range(1, cannonball_count + 1): # 150*i 를 간격으로 cannonball count 보여주기
+            # cannonball count 보여주기
+            for i in range(1, cannonball_count + 1):
                 cannonballcount_rect = cannonball_image.get_rect(center=(camera_x + 1366//4 + 150*i, camera_y + 768*15 + 50))
                 screen.blit(cannonball_image, cannonballcount_rect)
 
@@ -143,20 +162,23 @@ def ingame():
             pygame.draw.circle(screen, (255, 0, 0), (camera_x + (camera_x + seal_x) // 64, camera_y + 768*15 + (-seal_y) // 64), 8) # 물범 위치
             pygame.draw.circle(screen, (0, 0, 255), (x // 64, (+cannon_ball_y) // 64 + 768 // 4 - 8), 8) # 대포 위치
             wind_speed = air_resistence - 1
+
+            #공기 저항 시각화(오른쪽이면 빨간색, 왼쪽이면 파란색)
             if air_resistence > 1:
                 pygame.draw.rect(screen, (255, 0, 0), (camera_x + 1366//8, camera_y + 768*15 + 768//4 + 20, wind_speed*100000, 20))
             elif air_resistence < 1:
                 pygame.draw.rect(screen, (0, 0, 255), (camera_x + 1366//8 - -wind_speed*100000, camera_y + 768*15 + 768//4 + 20, -wind_speed*100000, 20))
+
         # 대포 발사중
         if shooting:
-            vx *= 0.999
+            vx *= 0.999 # 자연스럽게 나가도록 조절
             vx += wind_speed * 500
             vy += gravity
             cannon_ball_x += vx
             cannon_ball_y += vy
             cannonball_rect = cannonball_image.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2)) # 대포알을 화면 중앙에 위치
             screen.blit(cannonball_image, cannonball_rect)
-            camera_x = -cannon_ball_x + screen.get_width() // 2 # 대포알이 아닌 배경을 이동
+            camera_x = -cannon_ball_x + screen.get_width() // 2 # 대포알이 아닌 배경을 이동(대포알이 이동하는 반대 방향으로)
             camera_y = -cannon_ball_y + screen.get_height() // 2 - 768 * 15
             x -= vx
             y -= vy
@@ -168,7 +190,8 @@ def ingame():
                 attack_sound.play()
                 return endgame()
 
-            if camera_x < -1366 * 15 or camera_y < 768 * -15.5: # 배경 밖으로 나가지 않도록 설정, 객체를 못 맞춘 경우로 간주, 변수 초기화
+            # 배경 밖으로 나가지 않도록 설정, 객체를 못 맞춘 경우로 간주, 변수 초기화
+            if camera_x < -1366 * 15 or camera_y < 768 * -15.5:
                 shooting = False
                 camera_x = 0
                 camera_y = 768 * -15
@@ -192,12 +215,14 @@ def ingame():
             wheel_angle += angle_da
         elif cannon_speed != 0:
             cannon_speed -= cannon_speed / abs(cannon_speed) * acceleration # 가속도 물리엔진 구현
-            # 대포 발사 각도 조절
+
+        # 대포 발사 각도 조절
         if keys[pygame.K_UP]:
             angle -= angle_da
         if keys[pygame.K_DOWN]:
             angle += angle_da
         x += cannon_speed
+
         # 대포 발사 각도 제한
         angle = min(angle, 45)
         angle = max(-45, angle)
@@ -206,8 +231,6 @@ def ingame():
         seal_rect = seal_image.get_rect(center=(camera_x + seal_x, camera_y - seal_y))
         screen.blit(seal_image, seal_rect)
 
-
-
         pygame.display.flip()
         clock.tick(60)
 
@@ -215,6 +238,7 @@ def ingame():
     pygame.quit()
     sys.exit()
 
+# 게임 클리어
 def endgame():
     running = True
 
@@ -240,7 +264,7 @@ def endgame():
         pygame.display.flip()
         clock.tick(60)
 
-
+# 게임 시작
 def startgame():
     running = True
 
@@ -264,7 +288,7 @@ def startgame():
         pygame.display.flip()
         clock.tick(60)
 
-
+# 게임 오버
 def outgame():
     running = True
 
