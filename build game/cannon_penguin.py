@@ -32,16 +32,16 @@ def ingame():
     moving_x = 0
     moving_y = 0
     cannonball_count = 5
-    shoot_sound = pygame.mixer.Sound("./025_터지는소리BOOM.WAV")
-    attack_sound = pygame.mixer.Sound("./019_퓨히익 (online-audio-converter.com) (1).wav")
+    shoot_sound = pygame.mixer.Sound("source/025_터지는소리BOOM.WAV")
+    attack_sound = pygame.mixer.Sound("source/019_퓨히익 (online-audio-converter.com) (1).wav")
 
-    cannonball_image = pygame.image.load("./cannonball.png")
+    cannonball_image = pygame.image.load("source/cannonball.png")
     cannonball_image = pygame.transform.scale(cannonball_image, (100, 100))
-    seal_image = pygame.image.load("./물범.png")
+    seal_image = pygame.image.load("source/물범.png")
     seal_image = pygame.transform.scale(seal_image, (1366, 768))
-    wheel_image = pygame.image.load("./바퀴 이미지.png")
-    cannon_image = pygame.image.load("./대포이미지-removebg-preview-plusplu.png")
-    background_image = pygame.image.load("./펭귄배경.png")
+    wheel_image = pygame.image.load("source/바퀴 이미지.png")
+    cannon_image = pygame.image.load("source/대포이미지-removebg-preview-plusplu.png")
+    background_image = pygame.image.load("source/펭귄배경.png")
     background_image = pygame.transform.scale(background_image, (1366*16, 768*16)) # 배경을 매우 크게 설정
 
     running = True
@@ -218,9 +218,9 @@ def ingame():
 def endgame():
     running = True
 
-    background_image = pygame.image.load("./게임클리어background.png")
+    background_image = pygame.image.load("source/게임클리어background.png")
     background_image = pygame.transform.scale(background_image, (1366, 768))
-    gameclear_image = pygame.image.load("./게임클리어.png")
+    gameclear_image = pygame.image.load("source/게임클리어.png")
     gameclear_image = pygame.transform.scale(gameclear_image, (1366, 768))
 
     # 파이게임 루프
@@ -244,9 +244,9 @@ def endgame():
 def startgame():
     running = True
 
-    background_image = pygame.image.load("./펭귄배경.png")
+    background_image = pygame.image.load("source/펭귄배경.png")
     background_image = pygame.transform.scale(background_image, (1366, 768))
-    startmessage_image = pygame.image.load("./제목.png")
+    startmessage_image = pygame.image.load("source/제목.png")
     startmessage_image = pygame.transform.scale(startmessage_image, (1366, 768))
     # 파이게임 루프
     while running:
@@ -268,9 +268,9 @@ def startgame():
 def outgame():
     running = True
 
-    background_image = pygame.image.load("./펭귄배경.png")
+    background_image = pygame.image.load("source/펭귄배경.png")
     background_image = pygame.transform.scale(background_image, (1366, 768))
-    gameover_image = pygame.image.load("./게임오버.png")
+    gameover_image = pygame.image.load("source/게임오버.png")
     gameover_image = pygame.transform.scale(gameover_image, (1366, 768))
     # 파이게임 루프
     while running:
