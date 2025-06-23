@@ -9,4 +9,4 @@ def fifo(current_data: int, new_data: str) -> int:
         up -= 1
     return result
 
-print(fifo(1, "000"))
+print(fifo(1, "010"))
