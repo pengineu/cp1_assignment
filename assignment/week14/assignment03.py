@@ -18,9 +18,12 @@ dataframe = [[2.7, 1015.1, 1024.0, 69.0, 78.5, 2.7],
              [0.5,	1018.5,	1027.4,	65.0,	4.1,	0.5],
              [-1.0,	1016.6,	1025.5,	67.0,	23.6,	0.0]]
 colum = ["평균기온", "현지기압", "해면기압",	"평균습도", "월강수량", "평균지면온도"]
-print(corr(pd.DataFrame(dataframe, columns=colum), ["평균기온", "월강수량"]))
+input_ = pd.DataFrame(dataframe, columns=colum)
+print(corr(input_, ["평균기온", "월강수량"]))
 # df = pd.DataFrame(dataframe, columns=colum)
 # att = ["평균기온", "월강수량"]
 # print(df.corr()["평균기온"]["월강수량"])
-dataframe = pd.DataFrame(dataframe, columns=colum)
-print(dataframe.loc[0])
+# dataframe = pd.DataFrame(dataframe, columns=colum)
+# print(dataframe.loc[0])
+
+print(pd.DataFrame(dataframe))

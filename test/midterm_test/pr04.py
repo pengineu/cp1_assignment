@@ -25,11 +25,28 @@ def prime_number(num):
 
 def decrypt(ps):
     result = []
-    while ps != prime_number(ps):
-        result.append(prime_number(ps))
-        ps = ps // prime_number(ps)
-    result.append(prime_number(ps))
+    password = prime_number(ps)
+    while ps != password:
+        result.append(password)
+        ps = ps // password
+        password = prime_number(ps)
+    result.append(password)
     return result
 
-print(decrypt(4096
-              ))
+if __name__ == "__main__":
+    test_case = [
+        1372,
+        2310,
+        4096
+    ]
+
+    result = [
+        [2, 2, 7, 7, 7],
+        [2, 3, 5, 7, 11],
+        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+    ]
+    for t, r in zip(test_case, result):
+        if decrypt(t) != r:
+            print(False)
+        else:
+            print(True)

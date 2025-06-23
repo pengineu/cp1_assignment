@@ -23,5 +23,16 @@ def permutation(cards: list, r: int = 0):
     return card
 
 
+def product(arr: list, r: int=None):
+    r = r if r else len(arr)
+    def _backtrack(curr, remain):
+        if len(curr) == r:
+            yield tuple(curr)
+        for i, v in enumerate(remain):
+            if len(curr) < r:
+                yield from _backtrack(curr+[v], remain[:i]+remain[i:])
+    yield from _backtrack([], arr)
+
+
 if __name__ == "__main__":
     print(permutation([1, 2, 3, 4, 5], 2))
