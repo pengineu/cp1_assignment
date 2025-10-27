@@ -28,4 +28,4 @@ def combinations_with_replacement(arr: list, r: int=None):
 
 
 if __name__ == "__main__":
-    print(combination([1, 2, 3, 4, 5], 2))
+    print(combination([1, 2, 3, 4, 5], 5))
