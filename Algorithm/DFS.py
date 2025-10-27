@@ -1,27 +1,5 @@
 from combination_with_replacement import combination_with_replacement
-
-class tree:
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
-
-    def insert_left(self, value):
-        if self.left is None:
-            self.left = tree(value)
-        else:
-            new_tree = tree(value)
-            new_tree.left = self.left
-            self.left = new_tree
-
-    def insert_right(self, value):
-        if self.right is None:
-            self.right = tree(value)
-        else:
-            new_tree = tree(value)
-            new_tree.right = self.right
-            self.right = new_tree
-
+from data_structure import tree
 
 def DFS(root: tree, target: int = None):
 
