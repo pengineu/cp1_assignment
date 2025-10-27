@@ -1,4 +1,4 @@
-class tree:
+class Tree:
     def __init__(self, value):
         self.value = value
         self.left = None
@@ -20,7 +20,7 @@ class tree:
             new_tree.right = self.right
             self.right = new_tree
 
-class graph:
+class Graph:
     def __init__(self):
         self.nodes = {}
 
@@ -32,3 +32,6 @@ class graph:
         if from_node in self.nodes and to_node in self.nodes:
             self.nodes[from_node].append(to_node)
             self.nodes[to_node].append(from_node)
+
+    def get_neighbors(self, node):
+        return self.nodes[node] if node in self.nodes else None
