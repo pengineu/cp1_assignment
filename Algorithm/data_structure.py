@@ -6,17 +6,17 @@ class Tree:
 
     def insert_left(self, value):
         if self.left is None:
-            self.left = tree(value)
+            self.left = Tree(value)
         else:
-            new_tree = tree(value)
+            new_tree = Tree(value)
             new_tree.left = self.left
             self.left = new_tree
 
     def insert_right(self, value):
         if self.right is None:
-            self.right = tree(value)
+            self.right = Tree(value)
         else:
-            new_tree = tree(value)
+            new_tree = Tree(value)
             new_tree.right = self.right
             self.right = new_tree
 

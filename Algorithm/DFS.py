@@ -1,7 +1,7 @@
 from combination_with_replacement import combination_with_replacement
 from data_structure import Tree
 
-def DFS(root: Tree, target: int = None):
+def DFS(root: Tree, target=None):
 
     visited = []
     stack = [root]
