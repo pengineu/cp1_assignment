@@ -1,7 +1,7 @@
 from combination_with_replacement import combination_with_replacement
-from data_structure import tree
+from data_structure import Tree
 
-def DFS(root: tree, target: int = None):
+def DFS(root: Tree, target: int = None):
 
     visited = []
     stack = [root]
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     if height <= 0:
         exit()
     else:
-        root = tree(num)
+        root = Tree(num)
         num += 1
         for i in range(height - 1):
             channel = combination_with_replacement([".left", ".right"], i)
