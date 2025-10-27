@@ -17,7 +17,7 @@ def permutation(cards: list, r: int = 0):
         card_repo = []
 
     if r:
-        card = list(map(lambda x: x[:-r], card))
+        card = list(map(lambda x: x[:r], card))
         card = set(map(tuple, card))
     card = list(map(tuple, card))
     return card
@@ -35,4 +35,4 @@ def product(arr: list, r: int=None):
 
 
 if __name__ == "__main__":
-    print(permutation([1, 2, 3, 4, 5], 2))
+    print(permutation([".left", ".right", ".left"], 2))

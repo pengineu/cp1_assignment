@@ -15,5 +15,5 @@ def plot_mel_spectrogram(y, sr, n_mels=128, fmax=8000):
 if __name__ == "__main__":
     for audio_path in os.listdir('.'):
         if audio_path.endswith('.wav'):
-            y, sr = librosa.load(audio_path, sr=44100)
+            y, sr = librosa.load(audio_path, sr=None)
             plot_mel_spectrogram(y, sr)
